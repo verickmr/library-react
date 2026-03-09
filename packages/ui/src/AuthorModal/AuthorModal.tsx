@@ -1,5 +1,5 @@
 import { useEffect } from 'react'
-import { Modal, Form, Input, Descriptions, Tag } from 'antd'
+import { Modal, Form, Input, Descriptions } from 'antd'
 import type { Author, AuthorPayload } from '@library/types'
 
 export interface AuthorModalProps {
