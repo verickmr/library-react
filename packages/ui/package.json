@@ -9,20 +9,22 @@
     "build-storybook": "storybook build"
   },
   "dependencies": {
-    "@library/types": "*",
     "@ant-design/icons": "^5.5.0",
+    "@library/types": "*",
     "antd": "^5.22.0",
-    "dayjs": "^1.11.13",
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1"
+    "dayjs": "^1.11.13"
+  },
+  "peerDependencies": {
+    "react": ">=18",
+    "react-dom": ">=18"
   },
   "devDependencies": {
-    "@storybook/addon-essentials": "^8.4.7",
-    "@storybook/react-vite": "^8.4.7",
-    "@storybook/test": "^8.4.7",
-    "storybook": "^8.4.7",
+    "@storybook/addon-essentials": "^8.6.18",
+    "@storybook/react-vite": "^8.6.18",
+    "@storybook/test": "^8.6.18",
     "@types/react": "^18.3.12",
     "@vitejs/plugin-react": "^4.3.4",
+    "storybook": "^8.6.18",
     "vite": "^6.0.3"
   }
 }
