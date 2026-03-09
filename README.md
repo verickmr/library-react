@@ -1,159 +1,109 @@
-# Turborepo starter
+# Librarium
 
-This Turborepo starter is maintained by the Turborepo core team.
+Gerenciador de livros e autores construído com React, TypeScript e Ant Design, organizado como monorepo com Turborepo.
 
-## Using this example
+---
 
-Run the following command:
+## Tecnologias
 
-```sh
-npx create-turbo@latest
+- **Turborepo** — monorepo com pipelines de build e dev
+- **React 19 + TypeScript** — interface e tipagem
+- **Ant Design** — componentes de UI
+- **TanStack Query** — gerenciamento de estado assíncrono e cache
+- **Zustand** — estado de UI (modais)
+- **localForage** — persistência de dados via IndexedDB
+- **Vitest** — testes unitários
+- **Storybook** — documentação de componentes
+- **Docker + Nginx** — build e deploy com multi-stage
+
+---
+
+## Estrutura
+
+```
+library/
+├── apps/
+│   └── web/                  # Aplicação React (Vite, porta 3000)
+├── packages/
+│   ├── types/                # @library/types — interfaces Book e Author
+│   ├── db/                   # @library/db — instâncias localForage
+│   ├── services/             # @library/services — CRUD e testes
+│   └── ui/                   # @library/ui — modais e Storybook
+├── Dockerfile
+├── docker-compose.yml
+└── nginx.conf
 ```
 
-## What's inside?
+---
 
-This Turborepo includes the following packages/apps:
+## Pré-requisitos
 
-### Apps and Packages
+- Node.js 22+
+- npm 10+
+- Docker (opcional)
 
-- `docs`: a [Next.js](https://nextjs.org/) app
-- `web`: another [Next.js](https://nextjs.org/) app
-- `@repo/ui`: a stub React component library shared by both `web` and `docs` applications
-- `@repo/eslint-config`: `eslint` configurations (includes `eslint-config-next` and `eslint-config-prettier`)
-- `@repo/typescript-config`: `tsconfig.json`s used throughout the monorepo
+---
 
-Each package/app is 100% [TypeScript](https://www.typescriptlang.org/).
+## Instalação
 
-### Utilities
-
-This Turborepo has some additional tools already setup for you:
-
-- [TypeScript](https://www.typescriptlang.org/) for static type checking
-- [ESLint](https://eslint.org/) for code linting
-- [Prettier](https://prettier.io) for code formatting
-
-### Build
-
-To build all apps and packages, run the following command:
-
-With [global `turbo`](https://turborepo.dev/docs/getting-started/installation#global-installation) installed (recommended):
-
-```sh
-cd my-turborepo
-turbo build
+```bash
+git clone <repo-url>
+cd library
+npm install
 ```
 
-Without global `turbo`, use your package manager:
+---
 
-```sh
-cd my-turborepo
-npx turbo build
-yarn dlx turbo build
-pnpm exec turbo build
+## Desenvolvimento
+
+```bash
+# Rodar o app web
+npm run dev
+
+# Rodar Storybook
+cd packages/ui
+npx storybook dev -p 6006
+
+# Rodar testes
+npm run test
 ```
 
-You can build a specific package by using a [filter](https://turborepo.dev/docs/crafting-your-repository/running-tasks#using-filters):
+O app estará disponível em `http://localhost:3000`.
 
-With [global `turbo`](https://turborepo.dev/docs/getting-started/installation#global-installation) installed:
+---
 
-```sh
-turbo build --filter=docs
+## Testes
+
+```bash
+cd packages/services
+npx vitest run
 ```
 
-Without global `turbo`:
+8 testes cobrindo as operações CRUD de livros e autores.
 
-```sh
-npx turbo build --filter=docs
-yarn exec turbo build --filter=docs
-pnpm exec turbo build --filter=docs
+---
+
+## Docker
+
+```bash
+# Build
+docker build -t librarium .
+
+# Subir container
+docker compose up
 ```
 
-### Develop
+O app estará disponível em `http://localhost:8080`.
 
-To develop all apps and packages, run the following command:
+O build usa multi-stage: Node 22 Alpine compila o projeto e Nginx Alpine serve os arquivos estáticos com suporte a SPA (fallback para `index.html`).
 
-With [global `turbo`](https://turborepo.dev/docs/getting-started/installation#global-installation) installed (recommended):
+---
 
-```sh
-cd my-turborepo
-turbo dev
-```
+## Funcionalidades
 
-Without global `turbo`, use your package manager:
-
-```sh
-cd my-turborepo
-npx turbo dev
-yarn exec turbo dev
-pnpm exec turbo dev
-```
-
-You can develop a specific package by using a [filter](https://turborepo.dev/docs/crafting-your-repository/running-tasks#using-filters):
-
-With [global `turbo`](https://turborepo.dev/docs/getting-started/installation#global-installation) installed:
-
-```sh
-turbo dev --filter=web
-```
-
-Without global `turbo`:
-
-```sh
-npx turbo dev --filter=web
-yarn exec turbo dev --filter=web
-pnpm exec turbo dev --filter=web
-```
-
-### Remote Caching
-
-> [!TIP]
-> Vercel Remote Cache is free for all plans. Get started today at [vercel.com](https://vercel.com/signup?utm_source=remote-cache-sdk&utm_campaign=free_remote_cache).
-
-Turborepo can use a technique known as [Remote Caching](https://turborepo.dev/docs/core-concepts/remote-caching) to share cache artifacts across machines, enabling you to share build caches with your team and CI/CD pipelines.
-
-By default, Turborepo will cache locally. To enable Remote Caching you will need an account with Vercel. If you don't have an account you can [create one](https://vercel.com/signup?utm_source=turborepo-examples), then enter the following commands:
-
-With [global `turbo`](https://turborepo.dev/docs/getting-started/installation#global-installation) installed (recommended):
-
-```sh
-cd my-turborepo
-turbo login
-```
-
-Without global `turbo`, use your package manager:
-
-```sh
-cd my-turborepo
-npx turbo login
-yarn exec turbo login
-pnpm exec turbo login
-```
-
-This will authenticate the Turborepo CLI with your [Vercel account](https://vercel.com/docs/concepts/personal-accounts/overview).
-
-Next, you can link your Turborepo to your Remote Cache by running the following command from the root of your Turborepo:
-
-With [global `turbo`](https://turborepo.dev/docs/getting-started/installation#global-installation) installed:
-
-```sh
-turbo link
-```
-
-Without global `turbo`:
-
-```sh
-npx turbo link
-yarn exec turbo link
-pnpm exec turbo link
-```
-
-## Useful Links
-
-Learn more about the power of Turborepo:
-
-- [Tasks](https://turborepo.dev/docs/crafting-your-repository/running-tasks)
-- [Caching](https://turborepo.dev/docs/crafting-your-repository/caching)
-- [Remote Caching](https://turborepo.dev/docs/core-concepts/remote-caching)
-- [Filtering](https://turborepo.dev/docs/crafting-your-repository/running-tasks#using-filters)
-- [Configuration Options](https://turborepo.dev/docs/reference/configuration)
-- [CLI Usage](https://turborepo.dev/docs/reference/command-line-reference)
+- Cadastro, visualização, edição e exclusão de autores
+- Cadastro, visualização, edição e exclusão de livros
+- Relacionamento entre livros e autores
+- Exclusão em cascata — ao deletar um autor, seus livros são removidos
+- Dados persistidos no IndexedDB via localForage
+- Navegação entre páginas com React Router
