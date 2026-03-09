@@ -9,6 +9,7 @@
     "check-types": "turbo run check-types"
   },
   "devDependencies": {
+    "@storybook/react-vite": "^8.6.18",
     "prettier": "^3.7.4",
     "turbo": "^2.8.13",
     "typescript": "5.9.2"
