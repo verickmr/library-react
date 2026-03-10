@@ -17,6 +17,11 @@ Gerenciador de livros e autores construído com React, TypeScript e Ant Design, 
 - **Docker + Nginx** — build e deploy com multi-stage
 
 ---
+## Demo
+
+🚀 [library-react-web.vercel.app](https://library-react-web.vercel.app)
+
+---
 
 ## Estrutura
 
