@@ -1,4 +1,4 @@
-import { Table, Button, Space, Popconfirm, Tag, Typography, Tooltip, Empty } from 'antd'
+import { Table, Button, Space, Popconfirm, Tag, Typography, Tooltip, Empty, type Breakpoint } from 'antd'
 import { EyeOutlined, EditOutlined, DeleteOutlined, PlusOutlined } from '@ant-design/icons'
 import dayjs from 'dayjs'
 import type { ColumnsType } from 'antd/es/table'
@@ -56,6 +56,7 @@ export function BookTable() {
       key: 'pages',
       align: 'center',
       width: 100,
+      responsive: ['md'] as Breakpoint[],
       sorter: (a, b) => (a.pages ?? 0) - (b.pages ?? 0),
       render: (pages?: number) => pages ?? <span style={{ color: '#bbb' }}>—</span>,
     },
@@ -64,6 +65,7 @@ export function BookTable() {
       dataIndex: 'created_at',
       key: 'created_at',
       width: 160,
+      responsive: ['md'] as Breakpoint[],
       defaultSortOrder: 'descend',
       sorter: (a, b) => dayjs(a.created_at).diff(dayjs(b.created_at)),
       render: (date: string) => dayjs(date).format('DD/MM/YYYY'),
@@ -119,6 +121,7 @@ export function BookTable() {
         columns={columns}
         rowKey="id"
         loading={isLoading}
+        scroll={{ x: 'max-content' }}
         locale={{ emptyText: <Empty description="Nenhum livro cadastrado ainda" image={Empty.PRESENTED_IMAGE_SIMPLE} /> }}
         pagination={{ pageSize: 10, showSizeChanger: true, showTotal: (total) => `Total: ${total} livros` }}
       />

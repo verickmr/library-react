@@ -1,4 +1,4 @@
-import { Table, Button, Space, Popconfirm, Tag, Typography, Tooltip, Empty } from 'antd'
+import { Table, Button, Space, Popconfirm, Tag, Typography, Tooltip, Empty, type Breakpoint } from 'antd'
 import { EyeOutlined, EditOutlined, DeleteOutlined, PlusOutlined } from '@ant-design/icons'
 import type { ColumnsType } from 'antd/es/table'
 import type { Author, AuthorPayload } from '@library/types'
@@ -42,6 +42,7 @@ export function AuthorTable() {
       title: 'Email',
       dataIndex: 'email',
       key: 'email',
+      responsive: ['md'] as Breakpoint[],
       render: (email?: string) => email 
   ? <span>{email}</span> 
   : <span style={{ color: '#bbb' }}>—</span>    
@@ -106,6 +107,7 @@ export function AuthorTable() {
         columns={columns}
         rowKey="id"
         loading={isLoading}
+        scroll={{ x: 'max-content' }}
         locale={{ emptyText: <Empty description="Nenhum autor cadastrado ainda" image={Empty.PRESENTED_IMAGE_SIMPLE} /> }}
         pagination={{ pageSize: 10, showSizeChanger: true, showTotal: (total) => `Total: ${total} autores` }}
       />

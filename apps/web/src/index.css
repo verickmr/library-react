@@ -12,3 +12,40 @@ body {
   font-family: 'DM Sans', sans-serif;
   -webkit-font-smoothing: antialiased;
 }
+
+@media (min-width: 768px) {
+  .main-layout {
+    margin-left: 220px !important;
+  }
+  .mobile-header {
+    display: none !important;
+  }
+}
+
+@media (max-width: 767px) {
+  .main-layout {
+    margin-left: 0 !important;
+  }
+  .mobile-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 0 16px;
+    height: 56px;
+    background: #001529;
+    position: sticky;
+    top: 0;
+    z-index: 99;
+  }
+  .ant-layout-sider {
+    display: none !important;
+  }
+  .ant-layout-content {
+    padding: 24px 16px !important;
+  }
+
+  .ant-modal {
+    max-width: calc(100vw - 32px) !important;
+    margin: 16px auto !important;
+  }
+}
