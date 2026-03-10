@@ -47,7 +47,7 @@ library/
 ## Instalação
 
 ```bash
-git clone <repo-url>
+git clone https://github.com/verickmr/library-react
 cd library
 npm install
 ```
