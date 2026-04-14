@@ -2,12 +2,11 @@ import { Table, Button, Space, Popconfirm, Tag, Typography, Tooltip, Empty, type
 import { EyeOutlined, EditOutlined, DeleteOutlined, PlusOutlined } from '@ant-design/icons'
 import dayjs from 'dayjs'
 import type { ColumnsType } from 'antd/es/table'
-import type { Book } from '@library/types'
+import type { AuthorPayload, Book, BookPayload } from '@library/types'
 import { BookModal } from '@library/ui'
 import { useBooks, useCreateBook, useUpdateBook, useDeleteBook } from '@/hooks/useBooks'
-import { useAuthors } from '@/hooks/useAuthors'
+import { useAuthors, useCreateAuthor } from '@/hooks/useAuthors'
 import { useUIStore } from '@/store/uiStore'
-import type { BookPayload } from '@library/types'
 
 const { Title } = Typography
 
@@ -18,6 +17,7 @@ export function BookTable() {
   const createBook = useCreateBook()
   const updateBook = useUpdateBook()
   const deleteBook = useDeleteBook()
+  const createAuthor = useCreateAuthor()
 
   const { activeModal, modalMode, selectedId, openBookModal, closeModal } = useUIStore()
 
@@ -29,6 +29,10 @@ export function BookTable() {
     if (modalMode === 'create') await createBook.mutateAsync(values)
     else if (selectedId) await updateBook.mutateAsync({ id: selectedId, payload: values })
     closeModal()
+  }
+
+  const handleCreateAuthor = async (values: AuthorPayload) => {
+    return await createAuthor.mutateAsync(values)
   }
 
   const columns: ColumnsType<Book> = [
@@ -131,9 +135,11 @@ export function BookTable() {
         mode={modalMode}
         book={selectedBook}
         authors={authors}
+        onCreateAuthor={handleCreateAuthor}
         onClose={closeModal}
         onSubmit={handleSubmit}
         confirmLoading={isSaving}
+        isCreatingAuthor={createAuthor.isPending}
       />
     </>
   )
